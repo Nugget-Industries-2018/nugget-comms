@@ -1,0 +1,23 @@
+{
+  "name": "nugget-comms",
+  "version": "1.0.0",
+  "description": "for socket protocol and depth",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Nugget-Industries-2018/nugget-comms.git"
+  },
+  "author": "Bobby Martin & Chris Thierauf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Nugget-Industries-2018/nugget-comms/issues"
+  },
+  "homepage": "https://github.com/Nugget-Industries-2018/nugget-comms#readme",
+  "dependencies": {
+    "nugget-logger": "git+https://github.com/Nugget-Industries-2018/nugget-logger.git",
+    "uuid": "^3.2.1"
+  }
+}
