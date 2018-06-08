@@ -21,7 +21,8 @@ const tokenTypes = {
     STARTPITEMPSTREAM: 'startPiTempStream',
     STOPPITEMPSTREAM: 'stopPiTempStream',
     SETDEPTHLOCK: 'setDepthLock',
-    LEDTEST: 'LEDTest'
+    LEDTEST: 'LEDTest',
+    PIDTUNE: 'pidTune'
 };
 exports.tokenTypes = tokenTypes;
 exports.responseTypes = {
@@ -115,5 +116,11 @@ exports.setDepthLockToken = class extends token {
 exports.LEDTestToken = class extends token {
     constructor(brightness) {
         super(tokenTypes.LEDTEST, brightness);
+    }
+};
+
+exports.PIDTuneToken = class extends token {
+    constructor(values) {
+        super(tokenTypes.PIDTUNE, values)
     }
 };

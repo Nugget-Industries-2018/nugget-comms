@@ -199,6 +199,17 @@ module.exports = class extends EventEmitter {
     }
 
     /**
+     * Change constants for PID loop on-robot
+     * @param Kp - proportional constant
+     * @param Ki - integral constant
+     * @param Kd - derivative constant
+     * @returns {Promise<*>}
+     */
+    tunePIDLoop(Kp, Ki, Kd) {
+        return this.sendToken(new protocol.PIDTuneToken({ Kp: Kp, Ki: Ki, Kd: Kd }));
+    }
+
+    /**
      * Send a token and wait for its unique response from the robot
      *
      * @param token - the token to be sent
