@@ -27,7 +27,8 @@ const tokenTypes = {
 exports.tokenTypes = tokenTypes;
 exports.responseTypes = {
     MAGDATA: 'magData',
-    PITEMPDATA: 'piTempData'
+    PITEMPDATA: 'piTempData',
+    MOTORDATA: 'PIDMotorData'
 };
 
 // all tokens should extend this class

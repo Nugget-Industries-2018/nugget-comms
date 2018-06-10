@@ -27,6 +27,7 @@ module.exports = class extends EventEmitter {
         // is this the right place to set this up? only time will tell...
         emitter.on(responseTypes.MAGDATA, data => this.emit('magData', data.body));
         emitter.on(responseTypes.PITEMPDATA, data => this.emit('piTempData', data.body));
+        emitter.on(responseTypes.MOTORDATA, data => this.emit('motorData', data.body));
     }
 
     async connect(options) {
@@ -221,12 +222,20 @@ module.exports = class extends EventEmitter {
             return Promise.resolve();
         }
 
-        return new Promise(resolve => {
-            logger.d('sendToken', `sending it: ${JSON.stringify(token)}`);
-            this._socket.write(token.stringify());
+        return new Promise((resolve, reject) => {
+            // set listener for response
             emitter.once(token.headers.transactionID, data => {
                 resolve(data);
             });
+            // send it!!!!
+            logger.d('sendToken', `sending it: ${JSON.stringify(token)}`);
+            this._socket.write(token.stringify());
+            // reject after 5 seconds and remove listener
+            setTimeout(() => {
+                logger.e('sendToken', `response from robot ${token.headers.transactionID} timed out after 5 seconds`);
+                emitter.removeAllListeners(token.headers.transactionID);
+                reject();
+            }, 5000);
         });
     }
 
