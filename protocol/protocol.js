@@ -131,7 +131,7 @@ exports.PIDTuneToken = class extends token {
 exports.specialToken = class extends token {
     constructor(type, body) {
         super(tokenTypes.SPECIALTOKEN, body, uuidv1(), {
-            speicalType: type
+            specialType: type
         });
     }
 };
