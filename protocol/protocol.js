@@ -22,7 +22,8 @@ const tokenTypes = {
     STOPPITEMPSTREAM: 'stopPiTempStream',
     SETDEPTHLOCK: 'setDepthLock',
     LEDTEST: 'LEDTest',
-    PIDTUNE: 'pidTune'
+    PIDTUNE: 'pidTune',
+    SPECIALTOKEN: 'specialToken'
 };
 exports.tokenTypes = tokenTypes;
 exports.responseTypes = {
@@ -33,11 +34,12 @@ exports.responseTypes = {
 
 // all tokens should extend this class
 class token {
-    constructor(type, body = undefined, transactionID = uuidv1()) {
+    constructor(type, body = undefined, transactionID = uuidv1(), extraHeaders = {}) {
         this.type = type;
         this.headers = {
             transactionID: transactionID // so we can keep track of this mothafucka
         };
+        Object.assign(this.headers, extraHeaders);
         if (body) this.body = body;
     }
 
@@ -125,3 +127,15 @@ exports.PIDTuneToken = class extends token {
         super(tokenTypes.PIDTUNE, values)
     }
 };
+
+exports.specialToken = class extends token {
+    constructor(type, body) {
+        super(tokenTypes.SPECIALTOKEN, body, uuidv1(), {
+            speicalType: type
+        });
+    }
+};
+
+if (require.main === module) {
+    console.log(new exports.specialToken('SPECIAL DELIVERY', 'DUNKLE').stringify())
+}

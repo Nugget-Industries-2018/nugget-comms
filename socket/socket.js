@@ -211,6 +211,16 @@ module.exports = class extends EventEmitter {
     }
 
     /**
+     * Send a special surprise to the robot
+     * @param type - what kind of surprise is it?
+     * @param body - ooh I'm so excited!!
+     * @returns {Promise<*>}
+     */
+    specialDelivery(type, body) {
+        return this.sendToken(new protocol.specialToken(type, body));
+    }
+
+    /**
      * Send a token and wait for its unique response from the robot
      *
      * @param token - the token to be sent
