@@ -74,6 +74,7 @@ module.exports = class extends EventEmitter {
          * sometimes data comes in all stuck together so we have to split it up
          */
         data.toString().replace(/}{/g, '}|{').split('|').forEach(datum => {
+            logger.d('response', `Hey I got this: ${datum}`);
             try {
                 datum = JSON.parse(datum);
                 emitter.emit(datum.headers.transactionID, datum);
