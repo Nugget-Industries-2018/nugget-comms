@@ -33,12 +33,12 @@ module.exports = class extends EventEmitter {
         // if we're busy connecting
         if (this._isConnecting) {
             logger.w('connection', 'still connecting');
-            return;
+            return Promise.reject();
         }
         // if the socket is already established resolve and do nothing
         if (this._isConnected) {
             logger.w('connection', 'already connected');
-            return;
+            return Promise.reject();
         }
         // moderately ghetto semaphore
         this._isConnecting = true;
@@ -91,7 +91,8 @@ module.exports = class extends EventEmitter {
             logger.i('disconnection', 'disconnected');
 
         this._isConnected = false;
-        delete this._socket;
+        this._socket.removeAllListeners();
+        this._socket = undefined;
     }
 
     disconnect() {
